@@ -16,7 +16,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: 'requests_ip.php',
+            url: '/?url=requests_ip', //'requests_ip.php',
             data: $("#form_ip").serialize(),
             cache: false,
             dataType: "json",
@@ -55,7 +55,7 @@ $(document).ready(function() {
 
             $.ajax({
                 type: "POST",
-                url: 'requests_port.php',
+                url: '/?url=requests_port',
                 data: $("#PortCeck").serialize(),
                 cache: false,
                 dataType: "json",
@@ -97,7 +97,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: 'requests_monitoring.php',
+            url: '/?url=requests_monitoring',
             data: $("#form_monitoring").serialize(),
             cache: false,
             dataType: "json",
@@ -154,7 +154,7 @@ $(document).ready(function() {
 // ********************************
             $.ajax({
                 type: "POST",
-                url: 'requests_monitoring.php',
+                url: '/?url=requests_monitoring',
                
                 data: $("#form_ping").serialize(),
                 // cache: true,
