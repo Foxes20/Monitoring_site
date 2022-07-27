@@ -13,14 +13,18 @@ $path = __DIR__.'/'.'scripts/'.$url.'.php';
 
 
 
+    $url = $_GET['url'];
+    $path = __DIR__.'/'.'scripts/'.$url.'.php';
+
+
 
 spl_autoload_register(function ($className) {
-    require_once (__DIR__.'/'.'scripts/'.$className.'.php');
-
-    if (!class_exists($className, false)) {
-        throw new LogicException("Unable to load class: $className");
+    $path = __DIR__.'/scripts/'.$className.'.php';
+    if (file_exists($path)) {
+        include ($path);
     }
 });
+
 
 if (class_exists($url)) {
     $o = new $url;
@@ -29,6 +33,12 @@ if (class_exists($url)) {
     $o = new error404;
     $o->run();
 }
+
+
+
+
+
+
 
 
 
