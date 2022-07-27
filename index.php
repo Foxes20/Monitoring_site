@@ -1,21 +1,17 @@
 <?php
 
-switch($_GET['url']){
-    case 'service_ip':
-        exit(require_once('./scripts/service_ip.php'));
+$url = $_GET['url'];
 
-    case 'contacts':
-        exit(require_once('./scripts/contacts.php'));
+$path = __DIR__.'/'.'scripts/'.$url.'.php';
 
-    case 'requests_ip':
-        exit(require_once('./scripts/requests_ip.php'));
+// echo $url."<br>";
+// echo $path."<br>";
 
-    case 'requests_port':
-        exit(require_once('./scripts/requests_port.php'));
+if (file_exists($path)) {
 
-    case 'requests_monitoring':
-        exit(require_once('./scripts/requests_monitoring.php'));
+    require_once(__DIR__.'/'.'scripts/'.$url.'.php');
 
-    default: exit(require_once('./scripts/error404.php'));
+} else {
+    require_once('./scripts/error404.php');
 }
 
