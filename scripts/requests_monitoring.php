@@ -49,12 +49,6 @@ class requests_monitoring {
         //// Закрываем дескриптор
         //curl_close($ch);
 
-
-
-
-
-
-
         $siteName = $_POST['saiteIP'];
         if(isset($siteName) && !empty($siteName)){
             if(help($_POST['saiteIP']) == (200<=399)){
@@ -109,7 +103,6 @@ class requests_monitoring {
         //var_dump($protocol);
         // *****************из db*******
 
-
         if($_POST['saitePing']){
 
             $date = time();
@@ -120,8 +113,6 @@ class requests_monitoring {
             $address_mail = mysqli_real_escape_string($connect, $_POST['mail']);
             $id_telegram = mysqli_real_escape_string($connect, $_POST['telegaIHiddenIpNameIp']);
             $key_telegram = mysqli_real_escape_string($connect, $_POST['telegaIHiddenIpNameKey']);
-
-
 
             $sql = "INSERT INTO forma (`name_site`, `protocol_site`, `time_check`, `address_mail`, `id_telegram`, `key_telegram`, `date_add`) VALUES ('".$name_site."', '".$protocol_site."', '".$time_check."', '".$address_mail."', '".$id_telegram."', '".$key_telegram."', '".$date."' )";
             // echo $sql;

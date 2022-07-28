@@ -39,7 +39,6 @@ $city = $sxGeo->GetCityFull($ip);
 $port = $_POST['checkPort'];
 $server = $_POST['checkServer'];
 $fp = @fsockopen($server,$port,$errno,$errstr,5);
-
 ?>
 
 <!doctype html>
