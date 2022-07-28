@@ -12,9 +12,6 @@ class DB {
             if (! $this->conect) {
                 die("Connection failed: " . mysqli_connect_error());
             }
-
     }
 }
 $con = new DB();
-
-
