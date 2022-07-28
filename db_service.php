@@ -14,4 +14,3 @@ class DB {
             }
     }
 }
-$con = new DB();
