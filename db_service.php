@@ -1,18 +1,20 @@
 <?php
 class DB {
-    public function DB() {
+    public $conect;
+    public $servername = "Localhost";
+    public $username   = "service_dev_user";
+    public $password   = "bR3gX4uX0jtV2n";
+    public $dbname     = "service_dev";
 
-        $servername = "Localhost";
-        $username   = "service_dev_user";
-        $password   = "bR3gX4uX0jtV2n";
-        $dbname     = "service_dev";
+    public function __construct() {
+        $this->conect = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            mysqli_set_charset( $this->conect , "utf8");
+            if (! $this->conect) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
 
-        $connect = mysqli_connect($servername, $username, $password, $dbname);
-        mysqli_set_charset($connect , "utf8");
-        if (!$connect) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
     }
 }
- // mysqli_close($connect);
-?>
+$con = new DB();
+
+
