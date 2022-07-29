@@ -1,13 +1,12 @@
 <?php
 $url = $_GET['url'];
-$path = __DIR__.'/'.'scripts/'.$url.'.php';
+$path = __DIR__.'/'.'controllers/'.$url.'.php';
 
 spl_autoload_register(function ($className) {
-    $path = __DIR__.'/scripts/'.$className.'.php';
+    $path = __DIR__.'/controllers/'.$className.'.php';
     if (file_exists($path)) {
         include ($path);
     }
-
 });
 
 spl_autoload_register(function ($className) {

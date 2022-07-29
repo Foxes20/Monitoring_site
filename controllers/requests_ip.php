@@ -1,11 +1,10 @@
 <?php
 class requests_ip {
     public function run() {
-        if($_POST['check_ip']){
-            if(isset($_POST['check_ip']) && !empty($_POST['check_ip'])){
+        if ($_POST['check_ip']) {
+            if (isset($_POST['check_ip']) && !empty($_POST['check_ip'])) {
                 $ip = $_POST['check_ip'];// Формируем массив для JSON ответа
-                if( filter_var($ip, FILTER_VALIDATE_IP)){
-//                    require_once './SxGeo/SxGeo.php';
+                if ( filter_var($ip, FILTER_VALIDATE_IP)) {
                     $SxGeo = new SxGeo('./SxGeo/SxGeoCity.dat', SXGEO_BATCH | SXGEO_MEMORY);
                     $city = $SxGeo->GetCityFull($ip);
                     $country = $city['country']['name_ru'];
@@ -20,7 +19,7 @@ class requests_ip {
                     $latitude = $city['city']['lat'];
                     $longitude = $city['city']['lon'];
                     echo json_encode(['servIP'=> $ip, 'status'=>'ok','country'=>$country, 'town'=>$town, 'region'=>$region, 'latitude'=>$latitude, 'longitude'=>$longitude, 'flagContr'=>$flagContr]);
-                }else{
+                } else {
                     echo json_encode([message=>'Введите коректный адрес', 'status'=>'no']);
                 }
             }

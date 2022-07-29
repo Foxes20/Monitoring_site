@@ -1,44 +1,20 @@
 <?php
 class service_ip {
     public function run() {
-    require_once 'db_service.php';
+    require_once './core/db.php';
     require_once './SxGeo/SxGeo.php';
     include_once 'service_include_ip.php';
 
-    require_once './scripts/requests_ip.php';
-    require_once './scripts/requests_port.php';
-    require_once './scripts/requests_monitoring.php';
+    require_once './controllers/requests_ip.php';
+    require_once './controllers/requests_port.php';
+    require_once './controllers/requests_monitoring.php';
 
-
-
-//ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL); вывод ошибок
-
-// $result = mysqli_query($connect, "SELECT * FROM `forma` WHERE `id`= 20");
-//         for ($arr = []; $row = mysqli_fetch_assoc($result); $arr[] = $row);
-//         print_r($arr);
-
-// $result = mysqli_query($connect, "DELETE FROM `forma`");
-
-// function getIp(){
-
-//     if (!empty($_SERVER['HTTP_CLIENT_IP'])){
-//         $ip=$_SERVER['HTTP_CLIENT_IP'];
-//     }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-//         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-//     }else{
-//         $ip = $_SERVER['REMOTE_ADDR'];
-//     }
-//     return $ip;
-// }
-
-
-$ip = getIp();
-
-$sxGeo = new sxGeo('./SxGeo/SxGeoCity.dat', SXGEO_BATCH | SXGEO_MEMORY);
-$city = $sxGeo->GetCityFull($ip);
-$port = $_POST['checkPort'];
-$server = $_POST['checkServer'];
-$fp = @fsockopen($server,$port,$errno,$errstr,5);
+    $ip = getIp();
+    $sxGeo = new sxGeo('./SxGeo/SxGeoCity.dat', SXGEO_BATCH | SXGEO_MEMORY);
+    $city = $sxGeo->GetCityFull($ip);
+    $port = $_POST['checkPort'];
+    $server = $_POST['checkServer'];
+    $fp = @fsockopen($server,$port,$errno,$errstr,5);
 ?>
 
 <!doctype html>
