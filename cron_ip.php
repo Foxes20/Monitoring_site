@@ -1,5 +1,5 @@
 <?php
-require_once 'db_service.php';
+require_once 'db.php';
 $db = new db();
 
 set_time_limit(0);

@@ -1,8 +1,6 @@
 <?php
 class requests_monitoring {
     public function run() {
-
-        require_once './core/db.php';
         $db = new db();
         //************************************ monitoring ************************************
         function help($url, $protocol = "http") {

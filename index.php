@@ -15,6 +15,13 @@ spl_autoload_register(function ($className) {
     }
 });
 
+spl_autoload_register(function ($className) {
+    $path = __DIR__.'/core/'.$className.'.php';
+    if (file_exists($path)) {
+        include ($path);
+    }
+});
+
 if (class_exists($url)) {
     $o = new $url;
     $o->run();

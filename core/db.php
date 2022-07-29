@@ -1,5 +1,6 @@
 <?php
 class DB {
+
     public $connect;
     public $servername = "Localhost";
     public $username   = "service_dev_user";
