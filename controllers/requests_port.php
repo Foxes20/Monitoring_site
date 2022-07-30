@@ -1,10 +1,12 @@
 <?php
+namespace controllers;
+
 class requests_port {
     public function run() {
         require_once './core/db.php';
         //****************************** Port ****************************************
         if ($_POST['checkPort']) {
-            if(isset($_POST['checkPort']) && !empty($_POST['checkPort'])) {
+            if (isset($_POST['checkPort']) && !empty($_POST['checkPort'])) {
                 $port = $_POST['checkPort'];// Формируем массив для JSON ответа
             }
 

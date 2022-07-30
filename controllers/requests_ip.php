@@ -1,11 +1,16 @@
 <?php
+namespace controllers;
+
 class requests_ip {
     public function run() {
         if ($_POST['check_ip']) {
             if (isset($_POST['check_ip']) && !empty($_POST['check_ip'])) {
                 $ip = $_POST['check_ip'];// Формируем массив для JSON ответа
                 if ( filter_var($ip, FILTER_VALIDATE_IP)) {
-                    $SxGeo = new SxGeo('./SxGeo/SxGeoCity.dat', SXGEO_BATCH | SXGEO_MEMORY);
+
+                    $path = CUR_DIR.'/SxGeo/SxGeoCity.dat';
+                    $SxGeo = new \SxGeo(str_replace('\\', DIRECTORY_SEPARATOR, $path) , SXGEO_BATCH | SXGEO_MEMORY);
+
                     $city = $SxGeo->GetCityFull($ip);
                     $country = $city['country']['name_ru'];
                     $flagContr = '<img

@@ -1,7 +1,9 @@
 <?php
+namespace controllers;
+
 class requests_monitoring {
     public function run() {
-        $db = new db();
+        $db = new \core\db();
         //************************************ monitoring ************************************
         function help($url, $protocol = "http") {
 
@@ -70,7 +72,8 @@ class requests_monitoring {
             $id_telegram = mysqli_real_escape_string($db->connect, $_POST['telegaIHiddenIpNameIp']);
             $key_telegram = mysqli_real_escape_string($db->connect, $_POST['telegaIHiddenIpNameKey']);
 
-            $sql = "INSERT INTO forma (`name_site`, `protocol_site`, `time_check`, `address_mail`, `id_telegram`, `key_telegram`, `date_add`) VALUES ('".$name_site."', '".$protocol_site."', '".$time_check."', '".$address_mail."', '".$id_telegram."', '".$key_telegram."', '".$date."' )";
+            $sql = "INSERT INTO forma (`name_site`, `protocol_site`, `time_check`, `address_mail`, `id_telegram`, `key_telegram`, `date_add`) 
+                    VALUES ('".$name_site."', '".$protocol_site."', '".$time_check."', '".$address_mail."', '".$id_telegram."', '".$key_telegram."', '".$date."' )";
 
             if (mysqli_query($db->connect, $sql)) {
                 echo json_encode(['message' => 'Записи успешно добавлены.', 'status' => 'ok' ]);

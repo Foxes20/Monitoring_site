@@ -1,32 +1,24 @@
 <?php
+const CUR_DIR = __DIR__ ;
 $url = $_GET['url'];
 $path = __DIR__.'/'.'controllers/'.$url.'.php';
 
 spl_autoload_register(function ($className) {
-    $path = __DIR__.'/controllers/'.$className.'.php';
+    $path = __DIR__.'/'.str_replace('\\', DIRECTORY_SEPARATOR, $className) .'.php';
     if (file_exists($path)) {
         include ($path);
     }
 });
-
 spl_autoload_register(function ($className) {
     if ($className == 'SxGeo') {
         require_once './SxGeo/SxGeo.php';
     }
 });
-
-spl_autoload_register(function ($className) {
-    $path = __DIR__.'/core/'.$className.'.php';
-    if (file_exists($path)) {
-        include ($path);
-    }
-});
-
-if (class_exists($url)) {
-    $o = new $url;
+$class = 'controllers\\' . $url;
+if (class_exists($class)) {
+    $o = new $class;
     $o->run();
 } else {
-    $o = new error404;
-    $o->run();
+    $className = new controllers\error404;
+    $className->run();
 }
-
