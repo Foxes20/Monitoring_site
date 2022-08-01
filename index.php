@@ -1,4 +1,5 @@
 <?php
 const CUR_DIR = __DIR__ ;
-include_once 'autoload.php';
-include_once 'router.php';
+require_once  'autoload.php';
+require_once  'helpers.php';
+require_once  'router.php';
