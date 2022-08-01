@@ -4,16 +4,15 @@ namespace controllers;
 class requests_monitoring {
     public function run() {
         $db = new \core\db();
-        //************************************ monitoring ************************************
+//  ************************************ monitoring ************************************
         function help($url, $protocol = "http") {
-
-            $ch = curl_init($protocol.'://'.$url);//Инициализирует сеанс cURL
+            $ch = curl_init($protocol.'://'.$url);//  Инициализирует сеанс cURL
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-            curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers    true для включения заголовков в вывод.
-            curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body   true для исключения тела ответа из вывода. Метод запроса устанавливается в HEAD. Смена этого параметра в false не меняет его обратно в GET.
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//true для возврата результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер.
-            curl_setopt($ch, CURLOPT_TIMEOUT, 2);//Максимально позволенное количество секунд для выполнения cURL-функций.
+            curl_setopt($ch, CURLOPT_HEADER, true);    //  we want headers    true для включения заголовков в вывод.
+            curl_setopt($ch, CURLOPT_NOBODY, true);    //  we don't need body   true для исключения тела ответа из вывода. Метод запроса устанавливается в HEAD. Смена этого параметра в false не меняет его обратно в GET.
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//  true для возврата результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер.
+            curl_setopt($ch, CURLOPT_TIMEOUT, 2);//  Максимально позволенное количество секунд для выполнения cURL-функций.
             $output = curl_exec($ch);//Выполняет запрос cURL
             $httpcode = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
             curl_close($ch);//закрываем сеанс
@@ -35,7 +34,7 @@ class requests_monitoring {
                 echo json_encode([message=> 'Введите коректный адрес', 'status'=>'no']);
             }
         };
-        //****************************************************************************
+//  ****************************************************************************
         if ($_POST['saiteIP']) {
             $host = $_POST['saitePing'];
             if (isset($host) && !empty($host)){
@@ -49,7 +48,7 @@ class requests_monitoring {
                     $telegaIHiddenIp = $_POST['telegaIHiddenIpNameIp'];
 
                     if ($host > 5 && $protocol !== null && $time_request !== null && $mail == 'mail' && $telega == 'telegram') {
-                        exec("ping -c 4 " . $host, $output, $result);//ping -c 4 для Виндовс
+                        exec("ping -c 4 " . $host, $output, $result);//  ping -c 4 для Виндовс
                         if ($result == 0) {
                             echo json_encode([message => 'Ping successful!', 'status' => 'ok','output' => implode('<br>', $output) ]);
                         } else {
@@ -62,7 +61,7 @@ class requests_monitoring {
                 }
             }
         };
-        // *****************из db*******
+//  *****************из db*******
         if ($_POST['saitePing']) {
             $date = time();
             $name_site = mysqli_real_escape_string($db->connect, $_POST['saitePing']);

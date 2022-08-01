@@ -45,11 +45,11 @@ set_time_limit(0);
                 $status = 1; //"не работает";
                 $sql = mysqli_query($db->connect, "INSERT INTO `log` ( `date_log`, `status`,`id_form`) VALUES ('" . time() . "', '" . $status . "','" . $id_form . "' )");
                 echo "INSERT INTO `log` (`name_site_log`, `date_log`, `status`) VALUES ('" . $siteName . "', '" . time() . "', 'не работает' ).<br>";
-//            ************************** СКРИПТ бота для отправки сообщений
+//  ************************** СКРИПТ бота для отправки сообщений
                 $text="***";
-                // сюда нужно вписать токен вашего бота
+                //  сюда нужно вписать токен вашего бота
                 define('TELEGRAM_TOKEN', '$keyTelegram');
-                // сюда нужно вписать ваш внутренний айдишник
+                //  сюда нужно вписать ваш внутренний айдишник
                 define('TELEGRAM_CHATID', '$idTelegram');
                 message_to_telegram('Сайт лежит ');
             }
@@ -72,4 +72,4 @@ function message_to_telegram($text) {
     );
     curl_exec($ch);
 }
-//            ************************** СКРИПТ бота для отправки сообщений
+//  ************************** СКРИПТ бота для отправки сообщений
