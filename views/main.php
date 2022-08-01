@@ -1,10 +1,10 @@
 <?php
 /**
- * @var $ip
- * @var $city
+ * @var string $ip
+ * @var array $city
  */
-?>
 
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,7 +16,6 @@
     <script src="https://api-maps.yandex.ru/2.1/?apikey=ac6d972f-0cc4-4ca9-b1a0-7f68fd24bae5&load=package.full&lang=ru_RU" type="text/javascript"></script>
 </head>
 <body>
-
 <div class="container">
     <div class="row">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -39,7 +38,6 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-6">
-
                                     <form id="form_ip" action="//http://dev.trustik.ru/?path=service_ip" method="POST"  name="servIP">
                                         <div class="formaIp">
                                             <p>IP-адрес или хостнейм</p>
@@ -47,7 +45,6 @@
                                             <p id="output" name="ipip"></p>
                                             <button type="button" class="btn btn-primary" id="verify_ip">Проверить</button>
                                             <button type="button" class="btn btn-primary" id="my_ip">Мой IP</button><br><br>
-
                                             <p>Сервис позволяет выполнить поиск адреса<br>
                                                 по IPV4 с точностью до города.</p>
                                         </div>
@@ -75,8 +72,6 @@
                                         <p class="ip_longitude" >Долгота:  <sapn id="lon" name="lon"><?= $city['city']['lon'];?></p></sapn></p>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -134,7 +129,6 @@
                         </div>
                     </div>
                 </form>
-                <!--                    **********************************************-->
             </div>
             <!--                *********************     monitoring         ****************************-->
             <!--   minute hour day month dayofweek command -->
