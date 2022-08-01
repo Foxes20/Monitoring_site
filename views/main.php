@@ -2,10 +2,7 @@
 /**
  * @var string $ip
  * @var array $city
- * @var array $name
  */
-$ip = $name['ip'];
-$city = $name['city'];
 ?>
 <!doctype html>
 <html lang="en">

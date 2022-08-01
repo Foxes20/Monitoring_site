@@ -3,10 +3,15 @@
 namespace core;
 
 class view {
-    public function __construct($view, $name) {
-        $this->render($view, $name);
+    public $name;
+    public $params;
+
+    public function __construct($name, $params=[]) {
+        $this->name = $name;
+        $this->params = $params;
     }
-    public function render($view, $name) {
-        require_once (CUR_DIR.'/views/'.$view.'.php');
+    public function render() {
+        extract( $this->params);
+        require_once (CUR_DIR.'/views/'.$this->name.'.php');
     }
 }

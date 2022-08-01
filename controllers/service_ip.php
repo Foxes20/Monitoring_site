@@ -13,5 +13,6 @@ class service_ip {
         $fp = @fsockopen($server,$port,$errno,$errstr,5);
 
         $view = new \core\view('main', ['ip' => $ip, 'city' => $city]);
+        $view->render();
      }
 }
