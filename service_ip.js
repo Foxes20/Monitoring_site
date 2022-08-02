@@ -1,22 +1,19 @@
-//******************************IP
+//  ******************************IP
 $(document).ready(function() {
     //кнопка мой ip,выводит текущий ip
     $('#my_ip').on('click', function () {
         var eee = $('#address').html();
         $('#input_ip').val(eee);
     })
-
     $('.enterIP').on('click', function () {
         var ip = $('.enterIP').data('ip');
         $('.inpServer').val(ip);
     })
-
     $('#verify_ip').on('click', function () {
         var testIp = ($('#input_ip').val());
-
         $.ajax({
             type: "POST",
-            url: '/?url=requests_ip', //'requests_ip.php',
+            url: '/requests_ip',
             data: $("#form_ip").serialize(),
             cache: false,
             dataType: "json",
@@ -43,14 +40,13 @@ $(document).ready(function() {
             }
         })
     });
-// *******************************port
-
+//  *******************************port
     $('#checkPort').on('click', function (e) {
         e.preventDefault();
-        if(checkPortTab()){
+        if (checkPortTab()) {
             $.ajax({
                 type: "POST",
-                url: '/?url=requests_port',
+                url: '/requests_port',
                 data: $("#PortCeck").serialize(),
                 cache: false,
                 dataType: "json",
@@ -69,7 +65,6 @@ $(document).ready(function() {
         return false;
     });
 // **************************** проверка первого инпута- выводит заголовки  (код, метод, адресс)  ***************************
-
     $('#checkMonitoringInp').on('dblclick', function (e) {
         e.preventDefault();
         $('.pin').addClass('d-none');
@@ -77,19 +72,18 @@ $(document).ready(function() {
     $('#checkMonitoringInp').on('click', function (e) {
         e.preventDefault();
         var inpMon = $('#checkMonitoring').val();
-        if(inpMon.length > 3){
+        if (inpMon.length > 3){
             $('.pin').removeClass('d-none');
             $URL = $('#checkMonitoring').val();
         $.ajax({
             type: "POST",
-            url: '/?url=requests_monitoring',
+            url: '/requests_monitoring',
             data: $("#form_monitoring").serialize(),
             cache: false,
             dataType: "json",
             beforeSend: function () {
                 $("#resultMonitoring").html('<img src="./img/load.gif" style="width:80px;">');
             },
-
             success: function (result) {
                 if (result.status == 'ok') {
                     $("#resultMonitoring").html('Сайт: ' + result.siteName + ' работает');
@@ -99,12 +93,11 @@ $(document).ready(function() {
                 }
             }
         })
-        }else{
+        } else {
             $("#resultMonitoring").html('Введите адрес сайта');
          }
     });
 // *********************постановка на мониторинг*******************************
-
     $('#mail').on('click', function () {
         if ($(this).is(':checked')) {
             $('.hiddenDivMail').removeClass('d-none');
@@ -112,7 +105,6 @@ $(document).ready(function() {
             $('.hiddenDivMail').addClass('d-none');
         }
     });
-
     $('#telega').on('click', function () {
         if ($(this).is(':checked')) {
             $('.hiddenDivTelega').removeClass('d-none');
@@ -120,23 +112,19 @@ $(document).ready(function() {
             $('.hiddenDivTelega').addClass('d-none');
         }
     });
-
-    $('#checkPingBtn').on('click', function(e){
+    $('#checkPingBtn').on('click', function(e) {
         e.preventDefault();
-
-         $("#outputResPing").html('');
-
-        if( !(validateIp() &&
+        $("#outputResPing").html('');
+        if ( !(validateIp() &&
             validateProtocol()&&
             validateTime()&&
             validateTelegaCheckPatern()&&
             validateMailCheckPatern()&&
-            validateMailCheckBox()) ){
-        }else{
-// ********************************
+            validateMailCheckBox()) ) {
+        } else {
             $.ajax({
                 type: "POST",
-                url: '/?url=requests_monitoring',
+                url: '/requests_monitoring',
                 data: $("#form_ping").serialize(),
                 dataType: "json",
                 beforeSend: function(){//анимация загрузки
@@ -153,7 +141,6 @@ $(document).ready(function() {
         }
     });
 });
-
 function validateIp(){
     let resultIpInputPat = $('#checkPing').val().match(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g);
     if (!resultIpInputPat) {
@@ -162,7 +149,6 @@ function validateIp(){
     }
         return true;
 };
-
 function validateProtocol(){
     let valProt = $('#protocol').val();
     if (!valProt) {
@@ -171,8 +157,6 @@ function validateProtocol(){
     }
         return true;
 };
-
-
 function validateTime(){
     let valTime = $('#time_request').val();
 
@@ -182,30 +166,21 @@ function validateTime(){
     }
         return true;
 };
-
-
-function validateMailCheckBox(){// mail and telega
+function validateMailCheckBox(){
     if (!($('#mail').is(':checked')) && (!($('#telega').is(':checked')))) {
         $('#outputResPing').html('Выберите способ отправки <br>').css('color','red');
         return false;
     }
-
         return true;
 };
-
-
 function validateMailCheckPatern(){
     let patternCheckMail = $('#mailIHiddenInp').val().match(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i);
-
     if ($('#mail').is(':checked') && (patternCheckMail == null) ){
-
         $('#outputResPing').html('Введите корректный mail <br>').css('color','red');
         return false;
     }
         return true;
 };
-
-
 function validateTelegaCheckPatern(){
     let resultBotTelegaKey = $('#telegaIHiddenKey').val().match(/[0-9]{9}:[a-zA-Z0-9_-]{35}/g);
     let resultBotTelegaIp = $('#telegaIHiddenIp').val().match(/[0-9]{8,45}/g);
@@ -216,4 +191,3 @@ function validateTelegaCheckPatern(){
     }
         return true;
 };
-

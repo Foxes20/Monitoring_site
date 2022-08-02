@@ -11,3 +11,9 @@ function getIp() {
     }
     return $ip;
 }
+
+function getRequestPath() {
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+    return ltrim(str_replace('index.php', '', $path), '/');
+}
