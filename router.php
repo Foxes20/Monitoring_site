@@ -1,5 +1,4 @@
 <?php
-//$url = $_GET['url'];
 $url = getRequestPath();
 $class = 'controllers\\' . $url;
 

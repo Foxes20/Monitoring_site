@@ -3,6 +3,9 @@ namespace controllers;
 
 class contacts {
     public function run() {
-        echo "Наш номере телефона: 911";
+
+
+        $view = new \core\view('contact');
+        $view->render();
     }
 }

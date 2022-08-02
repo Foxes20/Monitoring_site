@@ -2,6 +2,10 @@
 require_once 'db.php';
 $db = new db();
 
+$recipient = "php@palgov.ru";
+$mailheader = "From: $recipient \r\n";
+mail($recipient, "тест работы мониторинга", "тетя Лена", $mailheader) or die("Error!nax");
+
 set_time_limit(0);
     $result = mysqli_query($db->connect, "SELECT * FROM `forma` ");
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC );
