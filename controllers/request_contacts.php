@@ -3,7 +3,6 @@ namespace controllers;
 
 class request_contacts {
     public function run() {
-        if ($_POST) {
             if (isset($_POST['name']))
                 $name = $_POST['name'];
             if (isset($_POST['email']))
@@ -22,6 +21,5 @@ class request_contacts {
             } else {
               echo json_encode(['status'=>'no']);
             }
-        }
     }
 }

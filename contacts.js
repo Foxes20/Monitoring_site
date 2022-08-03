@@ -8,7 +8,7 @@ $('#sendClick').on("click", function(e){
         'subject': $('input[name=subject]').val(),
         'message': $('textarea[name=message]').val()
     };
-    console.log("suka");
+
     $.ajax({
         url: "/request_contacts",
         type: "POST",
@@ -17,7 +17,7 @@ $('#sendClick').on("click", function(e){
         success: function (data) {
             if (data.status == 'ok') {
                 $('#contact-form')[0].reset();
-                $('#status').html('Всё заебись');
+                $('#status').html('Письмо отправленно');
             } else if(data.status == 'no') {
                 $('#status').html('Ошибка отправки письма');
             }

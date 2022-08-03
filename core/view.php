@@ -14,6 +14,4 @@ class view {
         extract( $this->params);
         require_once (CUR_DIR.'/views/'.$this->name.'.php');
     }
-
-
 }

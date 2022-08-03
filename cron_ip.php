@@ -4,7 +4,7 @@ $db = new db();
 
 $recipient = "php@palgov.ru";
 $mailheader = "From: $recipient \r\n";
-mail($recipient, "тест работы мониторинга", "тетя Лена", $mailheader) or die("Error!nax");
+mail($recipient, "", "", $mailheader) or die("Error!");
 
 set_time_limit(0);
     $result = mysqli_query($db->connect, "SELECT * FROM `forma` ");

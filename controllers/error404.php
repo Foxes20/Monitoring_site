@@ -3,6 +3,8 @@ namespace controllers;
 
 class error404 {
     function run() {
-        echo "Сорян, друг! страница не сущестует";
+        header("HTTP/1.0 404 Not Found");
+        $view = new \core\view('404');
+        $view->render();
     }
 }
