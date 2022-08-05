@@ -14,10 +14,9 @@
     <div class="container">
         <section class="mb-4">
         <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+        <h2 class="h1-responsive font-weight-bold text-center my-4">Свяжитесь с нами</h2>
         <!--Section description-->
-        <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
-            a matter of hours to help you.</p>
+        <p class="text-center w-responsive mx-auto mb-5">У вас есть вопросы? Пожалуйста, не стесняйтесь обращаться к нам напрямую. Наша команда вернется к вам в течение нескольких часов, чтобы помочь вам.</p>
         <div class="row">
             <!--Grid column-->
             <div class="col-md-9 mb-md-0 mb-5">
@@ -67,20 +66,20 @@
                 <div class="text-center text-md-left">
                     <a id="sendClick" class="btn btn-primary">Send</a>
                 </div>
-                <div id="status"></div>
+                <div id="status" class="status"></div>
             </div>
             <!--Grid column-->
             <!--Grid column-->
             <div class="col-md-3 text-center">
                 <ul class="list-unstyled mb-0">
                     <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                        <p>San Francisco, CA 94126, USA</p>
+                        <p>Новосибирск</p>
                     </li>
                     <li><i class="fas fa-phone mt-4 fa-2x"></i>
                         <p>+ 01 234 567 89</p>
                     </li>
                     <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                        <p>contact@mdbootstrap.com</p>
+                        <p>test@php.ru</p>
                     </li>
                 </ul>
             </div>

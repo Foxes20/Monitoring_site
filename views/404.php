@@ -46,4 +46,5 @@
 <div class="travolta">
     <h1>404</h1>
     <p>Страничка не найдена</p>
+    <a href="https://dev.trustik.ru/service_ip">Главная</a>
 </div>

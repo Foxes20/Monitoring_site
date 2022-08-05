@@ -29,9 +29,9 @@ class requests_monitoring {
                     )
                 );
                 $headers = get_headers($siteName);
-                echo json_encode([message => 'Все оки', 'status' => 'ok', 'siteName'=>$siteName, 'answer'=>implode('<br>', $headers)]);
+                echo json_encode([message => 'Все оки', 'status' => 'ok', 'siteName' => $siteName, 'answer' => implode('<br>', $headers)]);
             } else {
-                echo json_encode([message=> 'Введите коректный адрес', 'status'=>'no']);
+                echo json_encode([message => 'Введите коректный адрес', 'status' => 'no']);
             }
         };
 //  ****************************************************************************

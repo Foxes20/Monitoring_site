@@ -1,0 +1,10 @@
+<?php
+
+return [
+    'database' => [
+        'servername' => '',
+        'username' => '',
+        'password' => '',
+        'dbname' => '',
+    ],
+];
