@@ -1,8 +1,10 @@
 <?php
 namespace controllers;
 
-class requests_port {
-    public function run() {
+class requests_port
+{
+    public function run()
+    {
         require_once './core/db.php';
 //  ****************************** Port ****************************************
         if ($_POST['checkPort']) {

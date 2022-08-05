@@ -1,8 +1,10 @@
 <?php
 namespace controllers;
 
-class requests_ip {
-    public function run() {
+class requests_ip
+{
+    public function run()
+    {
         if ($_POST['check_ip']) {
             if (isset($_POST['check_ip']) && !empty($_POST['check_ip'])) {
                 $ip = $_POST['check_ip'];// Формируем массив для JSON ответа

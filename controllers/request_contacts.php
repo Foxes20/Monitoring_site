@@ -1,8 +1,10 @@
 <?php
 namespace controllers;
 
-class request_contacts {
-    public function run() {
+class request_contacts
+{
+    public function run()
+    {
         $db = new \core\db();
 
         $result = [];
@@ -49,10 +51,11 @@ class request_contacts {
             $result['status'] = 'no';
         }
 
-        $name = mysqli_real_escape_string($db->connect, $_POST['name']);
-        $email = mysqli_real_escape_string($db->connect, $_POST['email']);
-        $message = mysqli_real_escape_string($db->connect, $_POST['message']);
-        $subject = mysqli_real_escape_string($db->connect, $_POST['subject']);
+        $name = $db->escape($name);
+        $email = $db->escape($email);
+        $message = $db->escape($message);
+        $subject = $db->escape($subject);;
+
         $sql = mysqli_query($db->connect, "INSERT INTO `feedback` ( `name`, `email`,`theme`, `message`)
                                                          VALUES ('".$name."', '".$email."','".$subject."','".$message."')");
        mail($recipient, $subject, $content, $mailheader);

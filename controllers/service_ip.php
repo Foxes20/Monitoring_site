@@ -2,8 +2,10 @@
 
 namespace controllers;
 
-class service_ip {
-    public function run() {
+class service_ip
+{
+    public function run()
+    {
         $ip = \getIp();
         $path = CUR_DIR.'/SxGeo/SxGeoCity.dat';
         $SxGeo = new \SxGeo(str_replace('\\', DIRECTORY_SEPARATOR, $path) , SXGEO_BATCH | SXGEO_MEMORY);

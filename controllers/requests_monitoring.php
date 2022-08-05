@@ -1,8 +1,10 @@
 <?php
 namespace controllers;
 
-class requests_monitoring {
-    public function run() {
+class requests_monitoring
+{
+    public function run()
+    {
         $db = new \core\db();
 //  ************************************ monitoring ************************************
         function help($url, $protocol = "http") {
@@ -64,12 +66,13 @@ class requests_monitoring {
 //  *****************из db*******
         if ($_POST['saitePing']) {
             $date = time();
-            $name_site = mysqli_real_escape_string($db->connect, $_POST['saitePing']);
-            $protocol_site = mysqli_real_escape_string($db->connect, $_POST['selectProtocol']);
-            $time_check = mysqli_real_escape_string($db->connect, $_POST['selectTime_request']);
-            $address_mail = mysqli_real_escape_string($db->connect, $_POST['mail']);
-            $id_telegram = mysqli_real_escape_string($db->connect, $_POST['telegaIHiddenIpNameIp']);
-            $key_telegram = mysqli_real_escape_string($db->connect, $_POST['telegaIHiddenIpNameKey']);
+
+            $name_site = $db->escape($_POST['saitePing']);
+            $protocol_site = $db->escape($_POST['selectProtocol']);
+            $time_check = $db->escape($_POST['selectTime_request']);
+            $address_mail = $db->escape($_POST['mail']);
+            $id_telegram = $db->escape($_POST['telegaIHiddenIpNameIp']);
+            $key_telegram = $db->escape($_POST['telegaIHiddenIpNameKey']);
 
             $sql = "INSERT INTO forma (`name_site`, `protocol_site`, `time_check`, `address_mail`, `id_telegram`, `key_telegram`, `date_add`) 
                     VALUES ('".$name_site."', '".$protocol_site."', '".$time_check."', '".$address_mail."', '".$id_telegram."', '".$key_telegram."', '".$date."' )";
