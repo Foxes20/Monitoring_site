@@ -17,3 +17,37 @@ function getRequestPath() {
 
     return ltrim(str_replace('index.php', '', $path), '/');
 }
+
+function pagination($length, $page) {
+
+    if ($length < 5) {
+        foreach (range(1, $length) as $p) {
+            echo '<a href = "?page=' .$p. '">' .$p. '</a>';
+        }
+    }
+    if ($length > 4 && $page < 5) {
+        foreach (range(1, 5) as $p) {
+            echo '<a href = "?page=' .$p. '">' .$p. '</a>';
+        }
+    }
+    if ($length - 5 < 5 && $page > 5) {
+        foreach (range($length - 4, $length) as $p) {
+            echo '<a href = "?page=' .$p. '">' .$p. '</a>';
+        }
+    }
+    if ($length > 4 && $length - 5 < 5 && $page == 5) {
+        foreach (range($page - 2, $length) as $p) {
+            echo '<a href = "?page=' .$p. '">' .$p. '</a>';
+        }
+    }
+    if ($length > 4 && $length - 5 > 5 && $page >= 5 && $page <= $length - 4) {
+        foreach (range($page - 2, $length + 2) as $p) {
+            echo '<a href = "?page=' .$p. '">' .$p. '</a>';
+        }
+    }
+    if ($length > 4 && $length - 5 > 5 && $page > $length - 4) {
+        foreach (range($length - 4, $length) as $p) {
+            echo '<a href = "?page=' .$p. '">' .$p. '</a>';
+        }
+    }
+}
