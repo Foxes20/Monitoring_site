@@ -1,9 +1,10 @@
 <?php
 /**
  * @var array $items
- * @var float $length
- * @var string $page
- */
+ * @var int $length
+ * @var int $page
+ * @var int $rows
+ **/
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,14 +16,12 @@
     <title>Document</title>
 </head>
 <body>
+        <ul>
+            <? foreach ($rows as $row): ?>
+                <li><?= $row[ 'name'] ?> - <?= $row['email'] ?> - <a href='/admin/feedback_delete?id=<?=$row['id']?>'>удалить</a> - <a href='/admin/feedback_edit?id=<?=$row['id']?>'>просмотр</a></li>
 
-<?
- foreach ($items as $row) {
-     printf("%s<br>", $row["message"]);
-}
-?>
-
-<? pagination($length, $page);?>
-
+            <? endforeach;?>
+        </ul>
+        <? pagination($length, $page);?>
 </body>
 </html>
