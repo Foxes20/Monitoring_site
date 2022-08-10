@@ -19,7 +19,6 @@
         <ul>
             <? foreach ($rows as $row): ?>
                 <li><?= $row[ 'name'] ?> - <?= $row['email'] ?> - <a href='/admin/feedback_delete?id=<?=$row['id']?>'>удалить</a> - <a href='/admin/feedback_edit?id=<?=$row['id']?>'>просмотр</a></li>
-
             <? endforeach;?>
         </ul>
         <? pagination($length, $page);?>

@@ -1,3 +1,8 @@
+<?php
+/**
+* @var array $output
+**/
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,14 +13,14 @@
     <title>Document</title>
 </head>
     <body>
+    <h1>Просмотр записи</h1>
+        <div><b>Имя:</b> <?= $output['name'] ?></div>
+        <div><b>Почта:</b> <?= $output['email'] ?></div>
+        <div><b>Тема:</b> <?= $output['theme'] ?></div>
+        <div><b>Смс:</b> <?= $output['message'] ?></div>
+        <input type="text">
+        <input type="submit" value="Ответить">
 
-        <?php
-        if (!empty($output)) {
-            echo "Имя : ".$output['name']." - "."Почта : ".$output['email']." - "."Тема : ".$output['theme']." - "."Смс : ".$output['message'];
-        } else {
-            echo 'нету нихуя';
-        }
-        ?>
 
     </body>
 </html>
