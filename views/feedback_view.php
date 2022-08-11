@@ -13,14 +13,23 @@
     <title>Document</title>
 </head>
     <body>
+
     <h1>Просмотр записи</h1>
+    <form action="<?__DIR__?>feedback_answers" method="POST" name="view"  >
         <div><b>Имя:</b> <?= $output['name'] ?></div>
         <div><b>Почта:</b> <?= $output['email'] ?></div>
         <div><b>Тема:</b> <?= $output['theme'] ?></div>
         <div><b>Смс:</b> <?= $output['message'] ?></div>
-        <input type="text">
-        <input type="submit" value="Ответить">
 
+        <textarea type="text" rows="10" cols="45" id="message1" name="message1"></textarea>
 
+        <input type="hidden" id="email1" name="email1" value="<?= $output['email'] ?>">
+
+        <button type="submit" id="view">Ответить</button>
+        <div class="mess"></div>
+    </form>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="../feedback_view.js"></script>
     </body>
 </html>
