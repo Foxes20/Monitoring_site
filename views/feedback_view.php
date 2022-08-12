@@ -1,7 +1,9 @@
 <?php
 /**
 * @var array $output
+* @var array $row1
 **/
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,6 +18,7 @@
 
     <h1>Просмотр записи</h1>
     <form action="/admin/feedback_answers?id=<?=$output['id']?>" method="POST" name="view" id="formId">
+
         <div><b>Имя:</b> <?= $output['name'] ?></div>
         <div><b>Почта:</b> <?= $output['email'] ?></div>
         <div><b>Тема:</b> <?= $output['theme'] ?></div>
@@ -24,9 +27,13 @@
         <textarea type="text" rows="10" cols="45" id="message1" name="message1"></textarea>
         
         <button type="submit" id="view">Ответить</button>
-        <div class="mess"></div>
-    </form>
+        <div class="txt"></div>
 
+        <? foreach ($row1 as $key):?>
+        <div class="mess"><?= $key[0]?></div>
+        <? endforeach;?>
+
+    </form>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="../feedback_view.js"></script>
     </body>

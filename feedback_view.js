@@ -1,7 +1,7 @@
 $('#formId').on("submit", function(e) {
     e.preventDefault();
-
     let self = this;
+
     $.ajax({
         url:  this.action,
         type: "POST",
@@ -11,9 +11,9 @@ $('#formId').on("submit", function(e) {
         success: function (data) {
             if (data.status == 'ok') {
                 self.reset();
-                $('.mess').html('вы ответили');
+                location.reload();
             } else {
-                $('.mess').html('что то пошло не так');
+                $('.txt').html('что то пошло не так');
             }
         }
     });

@@ -38,8 +38,8 @@ class feedback_answers
             $result['status'] = 'no';
         }
 
-        $sql = mysqli_query($db->connect, "INSERT INTO `answers` (`content`) 
-                                                         VALUES ('".$message1."')")  or die(mysqli_error($db->connect));
+        $sql = mysqli_query($db->connect, "INSERT INTO `answers` (`feedback_id`, `content`) 
+                                                         VALUES ('".$id."','".$message1."')")  or die(mysqli_error($db->connect));
         echo json_encode($result);
     }
 }

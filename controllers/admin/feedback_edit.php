@@ -13,7 +13,11 @@ class feedback_edit
         $result = mysqli_query($connect, $query ) or die(mysqli_error($connect));
         $output = mysqli_fetch_assoc($result) or die(mysqli_error($connect));
 
-        $view = new \core\view('feedback_view', ['output' => $output]);
+        $sql1 = "SELECT content FROM answers WHERE feedback_id=$id";
+        $query1 = mysqli_query($db->connect, $sql1);
+        $row1 = mysqli_fetch_all($query1);
+
+        $view = new \core\view('feedback_view', ['output' => $output, 'row1' => $row1]);
         $view->render();
     }
 }
