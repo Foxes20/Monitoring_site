@@ -18,6 +18,5 @@ class DB {
     public function escape($value)
     {
         return (mysqli_real_escape_string($this->connect, $value));
-
     }
 }

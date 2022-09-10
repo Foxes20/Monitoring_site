@@ -2,7 +2,7 @@
 /**
  * @var array $items
  * @var int $length
- * @var int $page
+ * @var int $idPage
  * @var int $rows
  **/
 ?>
@@ -18,9 +18,13 @@
 <body>
         <ul>
             <? foreach ($rows as $row): ?>
-                <li><?= $row[ 'name'] ?> - <?= $row['email'] ?> - <a href='/admin/feedback_delete?id=<?=$row['id']?>'>удалить</a> - <a href='/admin/feedback_edit?id=<?=$row['id']?>'>просмотр</a></li>
+                <li><?= $row[ 'name'] ?> - <?= $row['email'] ?> -
+                    <form action="/admin/feedback_delete?id=<?=$row['id']?>" method="POST" style="display:inline-block;">
+                        <input type="submit" value="Удалить"> -
+                    </form>
+                    - <a href='/admin/feedback_edit?id=<?=$row['id']?>'>просмотр</a></li>
             <? endforeach;?>
         </ul>
-        <? pagination($length, $page);?>
+        <? pagination($length, $idPage);?>
 </body>
 </html>

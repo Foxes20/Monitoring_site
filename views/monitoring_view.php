@@ -15,18 +15,18 @@
 </head>
     <body>
         <h1>Просмотр и редактирование записи</h1>
-        <form action="/admin/monitoring_upd?id=<?=$row['id']?>" method="POST" name="view" id="formMonitoring">
 
-            <div><b>Имя сайта:</b> <?= $row['name_site'] ?></div>
-            <div><b>Протокол сайта:</b> <?= $row['protocol_site'] ?></div>
-            <div><b>Временной интервал:</b> <?= $row['time_check'] ?></div>
-            <div><b>Почта:</b> <?= $row['address_mail'] ?></div>
-            <div><b>ид телеграм:</b> <?= $row['id_telegram'] ?></div>
-            <div><b>ключ телеграм:</b> <?= $row['key_telegram'] ?></div><br>
+        <form action="/admin/monitoring_update?id=<?=$row['id']?>" method="POST" name="view" id="formMonitoring">
 
-            <button type="submit" id="edit_monitoring">Редактировать</button>
+            <div><input name="name_site" type="hidden" value="<?= $row['name_site'] ?>"><b>Имя сайта:</b> <?= $row['name_site'] ?></div>
+            <div><input name="protocol_site" type="hidden" value="<?= $row['protocol_site'] ?>"><b>Протокол сайта:</b> <?= $row['protocol_site'] ?></div>
+            <div><input name="time_check" type="hidden" value="<?= $row['time_check'] ?>"><b>Временной интервал:</b> <?= $row['time_check'] ?></div>
+            <div><input name="address_mail" type="hidden" value="<?= $row['address_mail'] ?>"><b>Почта:</b> <?= $row['address_mail'] ?></div>
+            <div><input name="id_telegram" type="hidden" value="<?= $row['id_telegram'] ?>"><b>ид телеграм:</b> <?= $row['id_telegram'] ?></div>
+            <div><input name="key_telegram" type="hidden" value="<?= $row['key_telegram'] ?>"><b>ключ телеграм:</b> <br><?= $row['key_telegram'] ?></div>
+
             <div class="txt"></div>
-
+            <input type="submit" value="Редактировать">
         </form>
     </body>
 </html>

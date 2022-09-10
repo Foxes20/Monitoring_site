@@ -19,10 +19,13 @@ class router
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $path = getRequestPath();
-        $callback = $this->paths[$path][$method];
 
-        if (isset($callback)) {
-            call_user_func($callback);
+//var_dump($this->paths[$path][$method]);
+
+
+        if (isset($this->paths[$path][$method])) {
+            call_user_func($this->paths[$path][$method]);
+            return;
         } else {
             header("HTTP/1.0 404 Not Found");
             $view = new \core\view('404');

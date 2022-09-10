@@ -53,7 +53,7 @@
                                     <div class="formaIpOutput">
                                         <!--                         вывод переменных массива-->
                                         <p id="test"></p>
-                                        <p class="ip_address" >IP-адрес: <sapn id="address" name="address"><?=$ip;?></sapn></p>
+                                        <p class="ip_address" >IP-адрес: <sapn id="address" name="address"><?= $ip;?></sapn></p>
                                         <p class="ip_country" >Страна: <sapn id="country" name="country"><?= $city['country']['name_ru'];?></sapn>
                                             <span id="imag" name="imag">
 
@@ -80,7 +80,7 @@
                         var myMap;
                         function init(){
                             myMap = new  ymaps.Map("map", {
-                                center: [<?= $city['city']['lat']?>, <?=$city['city']['lon']?>],
+                                center: [<?= $city['city']['lat']?>, <?= $city['city']['lon']?>],
                                 zoom: 10
                             });
                             myMap.behaviors.disable('scrollZoom');

@@ -148,7 +148,7 @@ function validateIp(){
         return false;
     }
         return true;
-};
+}
 function validateProtocol(){
     let valProt = $('#protocol').val();
     if (!valProt) {
@@ -156,7 +156,7 @@ function validateProtocol(){
         return false;
     }
         return true;
-};
+}
 function validateTime(){
     let valTime = $('#time_request').val();
 
@@ -165,14 +165,14 @@ function validateTime(){
         return false;
     }
         return true;
-};
+}
 function validateMailCheckBox(){
     if (!($('#mail').is(':checked')) && (!($('#telega').is(':checked')))) {
         $('#outputResPing').html('Выберите способ отправки <br>').css('color','red');
         return false;
     }
         return true;
-};
+}
 function validateMailCheckPatern(){
     let patternCheckMail = $('#mailIHiddenInp').val().match(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i);
     if ($('#mail').is(':checked') && (patternCheckMail == null) ){
@@ -180,7 +180,7 @@ function validateMailCheckPatern(){
         return false;
     }
         return true;
-};
+}
 function validateTelegaCheckPatern(){
     let resultBotTelegaKey = $('#telegaIHiddenKey').val().match(/[0-9]{9}:[a-zA-Z0-9_-]{35}/g);
     let resultBotTelegaIp = $('#telegaIHiddenIp').val().match(/[0-9]{8,45}/g);
@@ -190,4 +190,4 @@ function validateTelegaCheckPatern(){
         return false;
     }
         return true;
-};
+}

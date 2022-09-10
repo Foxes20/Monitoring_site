@@ -11,7 +11,7 @@ $('#formId').on("submit", function(e) {
         success: function (data) {
             if (data.status == 'ok') {
                 self.reset();
-                location.reload();
+              location.reload();
             } else {
                 $('.txt').html('что то пошло не так');
             }

@@ -15,7 +15,7 @@
     <head>
     <body>
     <h1>Просмотр и редактирование записи</h1>
-        <form action="/admin/monitoring_upd?id=<?=$row['id']?>" method="POST" name="view" id="formMonitoring">
+        <form action="/admin/monitoring_update?id=<?=$row['id']?>" method="POST" name="view" id="formMonitoring">
             <div>
                 <label for="name_site">name_site: </label>
                 <input type="text" id="name_site" name="name_site" value="<?=$row['name_site']?>">
@@ -41,7 +41,7 @@
                 <input type="text" id="key_telegram" name="key_telegram" value="<?=$row['key_telegram']?>">
             </div><br>
 
-            <button type="submit" id="edit_mon">Редактировать:</button>
+            <button type="submit" id="edit_mon">Изменить данные</button>
             <div class="txt"></div>
         </form>
         </body>

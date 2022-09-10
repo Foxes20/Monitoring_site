@@ -15,16 +15,20 @@
     <title>Document</title>
 </head>
 <body>
-    <ul>
-        <?foreach($row as $key):?>
-            <li>
-                <?= $key['name_site'] ?> - <?= $key['protocol_site'] ?> - <?= $key['time_check'] ?> - <?= $key['address_mail'] ?> -
-                <?= $key['id_telegram'] ?> - <?= $key['key_telegram'] ?> - <?= $key['date_add'] ?> -
-                <a href='/admin/monitoring_delete?id=<?=$key['id']?>'>удалить</a> -
-                <a href='/admin/monitoring_edit?id=<?=$key['id']?>'>просмотр</a>
-            </li>
-        <?endforeach;?>
-    </ul>
+    <div>
+        <ul>
+            <?foreach($row as $key):?>
+                <li>
+                    <?= $key['name_site'] ?> - <?= $key['protocol_site'] ?> - <?= $key['time_check'] ?> - <?= $key['address_mail'] ?> -
+                    <?= $key['id_telegram'] ?> - <?= $key['key_telegram'] ?> - <?= $key['date_add'] ?> -
+                        <form action="/admin/monitoring_delete?id=<?=$row[0]['id']?>" method="POST" name="formDel" id="formDel" style="display:inline-block;">
+                            <input type="submit" value="Удалить"> -
+                        </form>
+                        <a href="/admin/monitoring_show?id=<?=$key['id']?>" style="display:inline-block;">просмотр</a>
+                </li>
+            <?endforeach;?>
+        </ul>
+    </div>
     <? pagination($length, $page);?>
 </body>
 </html>
