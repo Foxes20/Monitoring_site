@@ -1,6 +1,7 @@
 <?php
 /**
  * @var array $row
+ * @var string $updateMessage
  **/
 
 ?>
@@ -44,5 +45,8 @@
             <button type="submit" id="edit_mon">Изменить данные</button>
             <div class="txt"></div>
         </form>
+    <? if ($updateMessage): ?>
+        <div><?= $updateMessage ?></div>
+    <? endif; ?>
         </body>
 </html>
