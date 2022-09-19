@@ -2,6 +2,7 @@
 /**
  * @var array $row
  * @var string $updateMessage
+ * @var array $errorMessage
  **/
 
 ?>
@@ -20,33 +21,51 @@
             <div>
                 <label for="name_site">name_site: </label>
                 <input type="text" id="name_site" name="name_site" value="<?=$row['name_site']?>">
+                <? if (isset($errorMessage['name_site'])): ?>
+                    <p><?= $errorMessage['name_site'];?></p>
+                <? endif; ?>
             </div><br>
             <div>
                 <label for="protocol_site">protocol_site:</label>
                 <input type="text" id="protocol_site" name="protocol_site" value="<?=$row['protocol_site']?>">
+                <? if (isset($errorMessage['protocol_site'])): ?>
+                    <p><?= $errorMessage['protocol_site'];?></p>
+                <? endif; ?>
             </div><br>
             <div>
                 <label for="time_check">time_check:</label>
                 <input type="text" id="time_check" name="time_check" value="<?=$row['time_check']?>">
+                <? if (isset($errorMessage['time_check'])): ?>
+                    <p><?= $errorMessage['time_check'];?></p>
+                <? endif; ?>
             </div><br>
             <div>
                 <label for="address_mail">address_mail:</label>
                 <input type="text" id="address_mail" name="address_mail" value="<?=$row['address_mail']?>">
+                <? if (isset($errorMessage['address_mail'])): ?>
+                    <p><?= $errorMessage['address_mail'];?></p>
+                <? endif; ?>
             </div><br>
             <div>
                 <label for="id_telegram">id_telegram:</label>
                 <input type="text" id="id_telegram" name="id_telegram" value="<?=$row['id_telegram']?>">
+                <? if (isset($errorMessage['id_telegram'])): ?>
+                    <p><?= $errorMessage['id_telegram'];?></p>
+                <? endif; ?>
             </div><br>
             <div>
                 <label for="key_telegram">key_telegram:</label>
                 <input type="text" id="key_telegram" name="key_telegram" value="<?=$row['key_telegram']?>">
+                <? if (isset($errorMessage['key_telegram'])): ?>
+                    <p><?= $errorMessage['key_telegram'];?></p>
+                <? endif; ?>
             </div><br>
 
             <button type="submit" id="edit_mon">Изменить данные</button>
             <div class="txt"></div>
         </form>
-    <? if ($updateMessage): ?>
-        <div><?= $updateMessage ?></div>
-    <? endif; ?>
+            <? if ($updateMessage): ?>
+                <div><?= $updateMessage ?></div>
+            <? endif; ?>
         </body>
 </html>

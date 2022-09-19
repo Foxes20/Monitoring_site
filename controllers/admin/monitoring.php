@@ -55,46 +55,73 @@ class monitoring
         $view->render();
     }
 
+    public function update()
+    {
+        $db = new \core\db();
+        $id = $db->escape($_GET['id']);
+        $errors = [];
+        if (($_POST['name_site'] == '') ) {
+            $errors['name_site'] = 'name_site - всё херово, Юра';
+        }
+        if (($_POST['protocol_site'] == '') ) {
+            $errors['protocol_site'] = 'protocol_site - не обновлен, что то пошло не так';
+        }
+        if (($_POST['time_check'] == '')) {
+            $errors['time_check'] = 'time_check - не обновлен, что то пошло не так';
+        }
+        if ($_POST['address_mail'] == '') {
+            if ($_POST['id_telegram'] == '') {
+                $errors['address_mail'] = 'поле email обязательно для заполнения если не заполнен телеграм';
+            }
+        }
+        if ($_POST['id_telegram'] == '') {
+            if ($_POST['address_mail'] == '') {
+                $errors['id_telegram'] = 'поле id_telegram обязательно для заполнения если не заполнен mail';
+            }
+        }
+        if ($_POST['key_telegram'] == '') {
+            if ($_POST['id_telegram'] !== '') {
+                $errors['key_telegram'] = 'поле key_telegram обязательно для заполнения если заполнен id_telegram';
+            }
+        }
+        if ($errors !== []) {
+            $_SESSION['errors'] = $errors;
+            header("Location: /admin/monitoring_edit?id=" . urlencode($id));
+            return;
+        }
+        $name_site = $db->escape($_POST['name_site']);
+        $protocol_site = $db->escape($_POST['protocol_site']);
+        $time_check = $db->escape($_POST['time_check']);
+        $address_mail = $db->escape($_POST['address_mail']);
+        $id_telegram = $db->escape($_POST['id_telegram']);
+        $key_telegram = $db->escape($_POST['key_telegram']);
+        $query = "UPDATE `forma`
+                          SET name_site = '$name_site', protocol_site= '$protocol_site', time_check = '$time_check', address_mail = '$address_mail', id_telegram = '$id_telegram', key_telegram = '$key_telegram'
+                          WHERE id='" . $id . "'";
+        mysqli_query($db->connect, $query);
+        $_SESSION['update'] = 'успешно сохранилось';
+        header("Location: /admin/monitoring_edit?id=" . urlencode($id));
+    }
+
     public function edit()
     {
         $db = new \core\db();
         $id = $db->escape($_GET['id']);
 
+        $errorMessage = null;
+        if (isset($_SESSION['errors'])) {
+            $errorMessage = $_SESSION['errors'];
+            unset($_SESSION['errors']);
+        }
         $query = "SELECT * FROM `forma` WHERE id='" . $id . "'";
         $result = mysqli_query($db->connect, $query) or die(mysqli_error($db->connect));
         $row = mysqli_fetch_assoc($result);
-
         $updateMessage = null;
         if (isset($_SESSION['update'])) {
             $updateMessage = $_SESSION['update'];
             unset($_SESSION['update']);
         }
-
-        $view = new \core\view('monitoring_save', ['row'=> $row,'updateMessage'=>$updateMessage ]);
+        $view = new \core\view('monitoring_save', ['row'=> $row,'updateMessage'=>$updateMessage, 'errorMessage'=>$errorMessage]);
         $view->render();
-    }
-
-    public function update()
-    {
-        $db = new \core\db();
-        $id = $db->escape($_GET['id']);
-
-        if (isset($_POST['name_site'])) {
-            $name_site = $db->escape($_POST['name_site']);
-            $protocol_site = $db->escape($_POST['protocol_site']);
-            $time_check = $db->escape($_POST['time_check']);
-            $address_mail = $db->escape($_POST['address_mail']);
-            $id_telegram = $db->escape($_POST['id_telegram']);
-            $key_telegram = $db->escape($_POST['key_telegram']);
-
-            $query = "UPDATE `forma`
-                      SET name_site = '$name_site', protocol_site= '$protocol_site', time_check = '$time_check', address_mail = '$address_mail', id_telegram = '$id_telegram', key_telegram = '$key_telegram'
-                      WHERE id='" . $id . "'";
-            mysqli_query($db->connect, $query);
-            $_SESSION['update'] = 'успешно сохранилось';
-            header("Location: /admin/monitoring_edit?id=".urlencode($id));
-        } else {
-            echo "Ошибка, не удалось редактировать";
-        }
     }
 }
