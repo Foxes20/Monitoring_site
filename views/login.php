@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $auth
+ **/
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,11 +13,15 @@
     <title>Document</title>
 </head>
     <body>
-        <form action="/login" method="POST">
+        <form action="/loginAuth" method="POST">
             <input type="text" placeholder="login" name="loginAuth">
             <input type="password" placeholder="password" name="passwordAuth">
 
             <input type="submit" value="Авторизироваться">
+
+            <? if ($auth): ?>
+                <div><?= $auth ?></div>
+            <? endif; ?>
         </form>
     </body>
 </html>

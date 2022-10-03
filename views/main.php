@@ -131,6 +131,7 @@
             </div>
             <!--                *********************     monitoring         ****************************-->
             <!--   minute hour day month dayofweek command -->
+            <?if (!empty($_SESSION['auth'])) :?>
             <div class="tab-pane fade" id="monitoring" role="tabpanel" aria-labelledby="monitoring-tab">
                 <div class="conteiner">
                     <div style="width:900px; margin:0 auto;">
@@ -199,6 +200,9 @@
                     </div>
                 </div>
             </div>
+            <?else:?>
+                <p>необходимо авторизироваться</p>
+            <?endif;?>
         </div>
     </div>
 </div>

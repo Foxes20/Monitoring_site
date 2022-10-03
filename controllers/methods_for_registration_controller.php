@@ -5,10 +5,32 @@ use core\view;
 
 class methods_for_registration_controller
 {
+    public function loginAuth()
+    {
+        $db = new \core\db();
+        $login = $db->escape($_POST['loginAuth']);
+        $password = $db->escape($_POST['passwordAuth']);
+
+        $sql = "SELECT * FROM `registration` WHERE login = '$login' AND password = '$password'";
+        $result = mysqli_query($db->connect, $sql) or die (mysqli_error($db->connect));
+        $row = mysqli_fetch_assoc($result);
+
+        if (isset($row)) {
+            $_SESSION['auth'] = $row['id'];
+            header("Location: /service_ip" );
+        } else {
+            $_SESSION['auth'] = NULL;
+            header("Location: /service_ip" );
+        }
+    }
+
     public function login()
     {
-
-        $view = new \core\view('./login');
+        $auth = NULL;
+        if (isset($_SESSION['auth'])) {
+            $auth = $_SESSION['auth'];
+        }
+        $view = new \core\view('./login', ['auth'=>$auth]);
         $view->render();
     }
 
@@ -17,12 +39,11 @@ class methods_for_registration_controller
         $db = new \core\db();
         $errors = [];
         $old = [];
-
         $login = $db->escape($_POST['login']);
         $password = $db->escape($_POST['password']);
 
         $sql = "SELECT `login` FROM `registration` WHERE login = '$login'";
-        $result = mysqli_query($db->connect, $sql) or die(mysqli_error($db->connect));
+        $result = mysqli_query($db->connect, $sql) or die (mysqli_error($db->connect));
         $row = mysqli_fetch_assoc($result);
 
         if ($_POST['login'] !== '') {
