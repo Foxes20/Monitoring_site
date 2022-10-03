@@ -1,8 +1,17 @@
 <?php
 namespace controllers;
 
+use core\view;
+
 class methods_for_registration_controller
 {
+    public function login()
+    {
+
+        $view = new \core\view('./login');
+        $view->render();
+    }
+
     public function register_user()
     {
         $db = new \core\db();
