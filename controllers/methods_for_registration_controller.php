@@ -8,16 +8,20 @@ class methods_for_registration_controller
     public function loginAuth()
     {
         $db = new \core\db();
-        $login = $db->escape($_POST['loginAuth']);
-        $password = $db->escape($_POST['passwordAuth']);
+        $login = $_POST['loginAuth'];
+        $password = $_POST['passwordAuth'];
 
-        $sql = "SELECT * FROM `registration` WHERE login = '$login' AND password = '$password'";
+        $sql = "SELECT * FROM `registration` WHERE login = '$login'";
         $result = mysqli_query($db->connect, $sql) or die (mysqli_error($db->connect));
         $row = mysqli_fetch_assoc($result);
 
-        if (isset($row)) {
-            $_SESSION['auth'] = $row['id'];
-            header("Location: /service_ip" );
+        $hashPas = $row['password'];
+
+        if (password_verify($password, $hashPas)) {
+            if (isset($row)) {
+                $_SESSION['auth'] = $row['id'];
+                header("Location: /service_ip" );
+            }
         } else {
             $_SESSION['auth'] = NULL;
             header("Location: /service_ip" );
@@ -39,8 +43,8 @@ class methods_for_registration_controller
         $db = new \core\db();
         $errors = [];
         $old = [];
-        $login = $db->escape($_POST['login']);
-        $password = $db->escape($_POST['password']);
+        $login = $_POST['login'];
+        $password = $_POST['password'];
 
         $sql = "SELECT `login` FROM `registration` WHERE login = '$login'";
         $result = mysqli_query($db->connect, $sql) or die (mysqli_error($db->connect));
@@ -60,8 +64,8 @@ class methods_for_registration_controller
         }
 
         if ($_POST['password'] !== '') {
-            if ((strlen($_POST['password']) >= 3 && strlen($_POST['password']) <= 10) == false) {
-                $errors['password'] = 'password должен быть не менее 3 символов и не более 10';
+            if ((strlen($_POST['password']) >= 3 && strlen($_POST['password']) <= 60) == false) {
+                $errors['password'] = 'password должен быть не менее 3 символов и не более 60';
             }
             if ($_POST['password'] !== $_POST['checkPassword']) {
                 $errors['checkPassword'] = 'пароли не совпадают';
@@ -78,10 +82,10 @@ class methods_for_registration_controller
             header("Location: /show_registration_form" );
             return;
         }
-
+        $hashPassword  = password_hash($password, PASSWORD_DEFAULT);
         if ($row == NULL) {
-            $insert = "INSERT INTO `registration`(`login`,`password`)VALUES('".$login."', '".$password."')";
-            mysqli_query($db->connect, $insert);
+            $insert = "INSERT INTO `registration`(`login`,`password`)VALUES('".$login."', '".$hashPassword."')";
+            mysqli_query($db->connect, $insert)or die (mysqli_error($db->connect));
             $_SESSION['insert'] = 'Авторизация прошла успешно';
             header("Location: /show_registration_form" );
         }
