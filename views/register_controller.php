@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="../css/reg.css">
 </head>
     <body>
-
         <form action="/register_user" method="POST">
             <label for="">Логин</label>
             <input type="text" name="login" value="<?=isset($old['login']) ? $old['login'] : '';?>">
@@ -38,10 +37,8 @@
             <br>
             <input type="submit" value="Войти">
         </form>
-
         <? if ($insertMessage): ?>
             <div><?= $insertMessage ?></div>
         <? endif; ?>
-
     </body>
 </html>

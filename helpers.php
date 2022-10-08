@@ -51,3 +51,12 @@ function pagination($length, $page) {
         }
     }
 }
+
+function unregisteredUser()
+{
+    if (empty($_SESSION['auth'])) {
+        header("Location: /show_registration_form");
+        return false;
+    }
+    return true;
+}

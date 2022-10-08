@@ -12,6 +12,9 @@ $router->post('admin/feedback_answers', [new \controllers\admin\feedback(), 'ans
 $router->post('admin/monitoring_update', [new \controllers\admin\monitoring(), 'update']);
 $router->post('admin/feedback_delete', [new \controllers\admin\feedback(), 'delete']);
 //________________________________User____________________________
+$router->get('show_change_password_users', [new \controllers\change_password(), 'show_change_password_users']);
+$router->post('change_password_users', [new \controllers\change_password(), 'change_password_users']);
+
 $router->get('show_registration_form', [new \controllers\methods_for_registration_controller(), 'show_registration_form']);
 $router->post('register_user', [new \controllers\methods_for_registration_controller(), 'register_user']);
 $router->get('login', [new controllers\methods_for_registration_controller(), 'login']);

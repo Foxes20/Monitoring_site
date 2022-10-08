@@ -16,7 +16,6 @@
         <form action="/loginAuth" method="POST">
             <input type="text" placeholder="login" name="loginAuth">
             <input type="password" placeholder="password" name="passwordAuth">
-
             <input type="submit" value="Авторизироваться">
 
             <? if ($auth): ?>

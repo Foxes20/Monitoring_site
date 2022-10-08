@@ -10,11 +10,9 @@ class methods_for_registration_controller
         $db = new \core\db();
         $login = $_POST['loginAuth'];
         $password = $_POST['passwordAuth'];
-
         $sql = "SELECT * FROM `registration` WHERE login = '$login'";
         $result = mysqli_query($db->connect, $sql) or die (mysqli_error($db->connect));
         $row = mysqli_fetch_assoc($result);
-
         $hashPas = $row['password'];
 
         if (password_verify($password, $hashPas)) {
@@ -45,7 +43,6 @@ class methods_for_registration_controller
         $old = [];
         $login = $_POST['login'];
         $password = $_POST['password'];
-
         $sql = "SELECT `login` FROM `registration` WHERE login = '$login'";
         $result = mysqli_query($db->connect, $sql) or die (mysqli_error($db->connect));
         $row = mysqli_fetch_assoc($result);

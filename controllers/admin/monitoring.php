@@ -5,30 +5,36 @@ class monitoring
 {
     public function index()
     {
-        $db = new \core\db();
-        $connect = $db->connect;
-
-        if (!isset($_GET['page'])) {
-            $page = 1;
-        } else {
-            $page = $_GET['page'];
+        if (!unregisteredUser()) {
+            return;
         }
-        $count_query = mysqli_query($connect, "SELECT COUNT(`name_site`) FROM `forma`");
-        $count_array = $count_query->fetch_array(MYSQLI_NUM);
-        $count = $count_array[0];
-        $limit = 10;
-        $start = ($page * $limit) - $limit;
-        $length = ceil($count / $limit);
-        $queryRequest = "SELECT * FROM `forma` ORDER BY `id` DESC  LIMIT $start, $limit";
-        $query = mysqli_query($connect, $queryRequest);
-        $row = mysqli_fetch_all($query, MYSQLI_ASSOC);
+            $db = new \core\db();
+            $connect = $db->connect;
 
-        $view = new \core\view('monitoring', ['count' => $count, 'row' => $row, 'length' => $length, 'page' => $page]);
-        $view->render();
+            if (!isset($_GET['page'])) {
+                $page = 1;
+            } else {
+                $page = $_GET['page'];
+            }
+            $count_query = mysqli_query($connect, "SELECT COUNT(`name_site`) FROM `forma`");
+            $count_array = $count_query->fetch_array(MYSQLI_NUM);
+            $count = $count_array[0];
+            $limit = 10;
+            $start = ($page * $limit) - $limit;
+            $length = ceil($count / $limit);
+            $queryRequest = "SELECT * FROM `forma` ORDER BY `id` DESC  LIMIT $start, $limit";
+            $query = mysqli_query($connect, $queryRequest);
+            $row = mysqli_fetch_all($query, MYSQLI_ASSOC);
+
+            $view = new \core\view('monitoring', ['count' => $count, 'row' => $row, 'length' => $length, 'page' => $page]);
+            $view->render();
     }
 
     public function delete()
     {
+        if (!unregisteredUser()) {
+            return;
+        }
         $db = new \core\db();
         $id = $db->escape($_GET['id']);
         $query = "DELETE FROM `forma` WHERE id = $id";
@@ -42,6 +48,9 @@ class monitoring
 
     public function show()
     {
+        if (!unregisteredUser()) {
+            return;
+        }
         $db = new \core\db();
         $id = $db->escape($_GET['id']);
         $query = "SELECT * FROM `forma` WHERE id='".$id."'";
@@ -57,33 +66,40 @@ class monitoring
 
     public function update()
     {
+        if (!unregisteredUser()) {
+            return;
+        }
         $db = new \core\db();
         $id = $db->escape($_GET['id']);
         $errors = [];
-        $old= [];
+        $old = [];
 
-        if (($_POST['name_site'] == '')) {
+        $domainPatternCheck = $_POST['name_site'];
+        $MailPatternCheck = $_POST['address_mail'];
+
+        if (filter_var($domainPatternCheck, FILTER_VALIDATE_DOMAIN) == false || filter_var($domainPatternCheck, FILTER_VALIDATE_IP == false)) {
             $errors['name_site'] = 'name_site - не обновлен, что то пошло не так';
-        } else {
-            $old['name_site'] = $_POST['name_site'];
+            $old['name_site'] = $domainPatternCheck;
         }
+
         if (($_POST['protocol_site'] == '') ) {
             $errors['protocol_site'] = 'protocol_site - не обновлен, что то пошло не так';
-        } else {
             $old['protocol_site'] = $_POST['protocol_site'];
         }
+
         if (($_POST['time_check'] == '')) {
             $errors['time_check'] = 'time_check - не обновлен, что то пошло не так';
-        } else {
             $old['time_check'] = $_POST['time_check'];
         }
-        if ($_POST['address_mail'] == '') {
+
+        if (filter_var($MailPatternCheck, FILTER_VALIDATE_EMAIL) == false) {
+            $old['address_mail'] = 'майл не корректный';
             if ($_POST['id_telegram'] == '') {
-                $errors['address_mail'] = 'поле email обязательно для заполнения если не заполнен телеграм';
+                $errors['address_mail'] = 'поле email должен быть коректен и обязателен для заполнения если не заполнен телеграм ';
+                $old['address_mail'] = $MailPatternCheck;
             }
-        } else {
-            $old['address_mail'] = $_POST['address_mail'];
         }
+
         if ($_POST['id_telegram'] == '') {
             if ($_POST['address_mail'] == '') {
                 $errors['id_telegram'] = 'поле id_telegram обязательно для заполнения если не заполнен mail';
@@ -98,6 +114,7 @@ class monitoring
         } else {
             $old['key_telegram'] = $_POST['key_telegram'];
         }
+
         if ($old !== []) {
             $_SESSION['old'] = $old;
         }
@@ -124,6 +141,9 @@ class monitoring
 
     public function edit()
     {
+        if (!unregisteredUser()) {
+            return;
+        }
         $db = new \core\db();
         $id = $db->escape($_GET['id']);
 
@@ -132,7 +152,6 @@ class monitoring
             $old = $_SESSION['old'];
             unset($_SESSION['old']);
         }
-
         $errorMessage = null;
         if (isset($_SESSION['errors'])) {
             $errorMessage = $_SESSION['errors'];

@@ -5,6 +5,9 @@ class feedback
 {
     public function index()
     {
+        if (!unregisteredUser()) {
+            return;
+        }
         $db = new \core\db();
         $connect = $db->connect;
 
@@ -29,6 +32,9 @@ class feedback
 
     public function answers()
     {
+        if (!unregisteredUser()) {
+            return;
+        }
         $db = new \core\db();
         $result = [];
 
@@ -36,7 +42,7 @@ class feedback
             $message1 = $_POST['message1'];
 
         if ($message1 === '') {
-            echo json_encode (["Message cannot be empty."]);
+            echo json_encode(["Message cannot be empty."]);
             die();
         }
         $id = $db->escape($_GET['id']);
@@ -46,9 +52,9 @@ class feedback
         $row = mysqli_fetch_assoc($query);
         $recipient = $row['email'];
         $mailheader = "Ответ: $message1 \r\n";
-        $mail = mail($recipient, $message1, $mailheader)or die("Error!");
+        $mail = mail($recipient, $message1, $mailheader) or die("Error!");
 
-        if ($mail){
+        if ($mail) {
             $result['message'] = 'mail sent';
         } else {
             $result['message'] = 'mail not sent';
@@ -60,17 +66,20 @@ class feedback
             $result['status'] = 'no';
         }
         $sql = mysqli_query($db->connect, "INSERT INTO `answers` (`feedback_id`, `content`) 
-                                                         VALUES ('".$id."','".$message1."')")  or die(mysqli_error($db->connect));
+                                                         VALUES ('" . $id . "','" . $message1 . "')") or die(mysqli_error($db->connect));
         echo json_encode($result);
     }
 
     public function edit()
     {
+        if (!unregisteredUser()) {
+            return;
+        }
         $db = new \core\db();
         $connect = $db->connect;
         $id = $db->escape($_GET['id']);
-        $query = "SELECT * FROM `feedback` WHERE id='".$id."'";
-        $result = mysqli_query($connect, $query ) or die(mysqli_error($connect));
+        $query = "SELECT * FROM `feedback` WHERE id='" . $id . "'";
+        $result = mysqli_query($connect, $query) or die(mysqli_error($connect));
         $output = mysqli_fetch_assoc($result) or die(mysqli_error($connect));
         $sql1 = "SELECT content FROM `answers` WHERE feedback_id=$id";
         $query1 = mysqli_query($db->connect, $sql1);
@@ -82,8 +91,11 @@ class feedback
 
     public function delete()
     {
+        if (!unregisteredUser()) {
+            return;
+        }
         $db = new \core\db();
-        $connect =$db->connect;
+        $connect = $db->connect;
         $userId = $db->escape($_GET['id']);
         $query = "DELETE FROM `feedback` WHERE id = $userId";
 
