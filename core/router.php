@@ -20,9 +20,6 @@ class router
         $method = $_SERVER['REQUEST_METHOD'];
         $path = getRequestPath();
 
-//var_dump($this->paths[$path][$method]);
-
-
         if (isset($this->paths[$path][$method])) {
             call_user_func($this->paths[$path][$method]);
             return;
