@@ -5,6 +5,97 @@ use core\view;
 
 class methods_for_registration_controller
 {
+    public function userAccount()
+    {
+        $db = new \core\db();
+        $id = $_SESSION['auth'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $login = $_POST['login'];
+        $errors = [];
+        $old = [];
+
+        $sqlQuery = "SELECT `login` FROM `registration` WHERE login = '$login'";
+        $result = mysqli_query($db->connect, $sqlQuery) or die (mysqli_error($db->connect));
+        $row = mysqli_fetch_assoc($result);
+
+        if ($name !== '') {
+            if ((strlen($name) >= 2 && strlen($name) <= 30) == false) {
+                $errors['name'] = 'Имя должно быть не менее 2 символов и не более 30';
+                $old['name'] = $_POST['name'];
+            }
+        } else {
+            $errors['name'] = 'Имя не может быть пустым';
+        }
+        if ($surname !== '') {
+            if ((strlen($surname) >= 2 && strlen($surname) <= 30) == false) {
+                $errors['surname'] = 'Имя должно быть не менее 2 символов и не более 30';
+                $old['surname'] = $_POST['surname'];
+            }
+        } else {
+            $errors['surname'] = 'Фамилия не может быть пустой';
+        }
+        if ($_POST['login'] !== '') {
+            if ((strlen($_POST['login']) >= 2 && strlen($_POST['login']) <= 30) == false) {
+                $errors['login'] = 'login должен быть не менее 2 символов и не более 30';
+                $old['login'] = $_POST['login'];
+            }
+            if ($row !== NULL) {
+                $errors['login'] = 'такой login уже существует';
+                $old['login'] = $_POST['login'];
+            }
+        } else {
+            $errors['login'] = 'login не может быть пустым';
+        }
+        if ($old !== []) {
+            $_SESSION['old'] = $old;
+        }
+        if ($errors !== []) {
+            $_SESSION['errors'] = $errors;
+            header("Location: /showUserAccount" );
+            return;
+        }
+        $query = "UPDATE `registration`
+                          SET name = '$name', surname = '$surname',  login = '$login'
+                          WHERE id='" . $id . "'";
+        mysqli_query($db->connect, $query);
+        $_SESSION['update'] = 'успешно сохранилось';
+        header("Location: /showUserAccount");
+    }
+
+    public function showUserAccount()
+    {
+        if (!unregisteredUser()) {
+            return;
+        }
+        $db = new \core\db();
+//__________________
+        $old = NULL;
+        if (isset($_SESSION['old'])) {
+            $old = $_SESSION['old'];
+            unset($_SESSION['old']);
+        }
+        $errorMessage = NULL;
+        if (isset($_SESSION['errors'])) {
+            $errorMessage = $_SESSION['errors'];
+            unset($_SESSION['errors']);
+        }
+        $updateMessage = NULL;
+        if (isset($_SESSION['update'])) {
+            $updateMessage = $_SESSION['update'];
+            unset($_SESSION['update']);
+        }
+        //_______________________
+        $id = $_SESSION['auth'];
+
+        $sql ="SELECT `login`, `name`, `surname` FROM `registration` WHERE id = '$id'";
+        $result = mysqli_query($db->connect, $sql) or die (mysqli_error($db->connect));
+        $row = mysqli_fetch_assoc($result);
+
+        $view = new \core\view('./account',['row'=>$row,'old' => $old, 'errorMessage' => $errorMessage,'updateMessage'=> $updateMessage]);
+        $view->render();
+    }
+
     public function loginAuth()
     {
         $db = new \core\db();
@@ -41,12 +132,33 @@ class methods_for_registration_controller
         $db = new \core\db();
         $errors = [];
         $old = [];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
         $login = $_POST['login'];
         $password = $_POST['password'];
+
+
+
         $sql = "SELECT `login` FROM `registration` WHERE login = '$login'";
         $result = mysqli_query($db->connect, $sql) or die (mysqli_error($db->connect));
         $row = mysqli_fetch_assoc($result);
 
+        if ($name !== '') {
+            if ((strlen($name) >= 2 && strlen($name) <= 30) == false) {
+                $errors['name'] = 'Имя должно быть не менее 2 символов и не более 30';
+                $old['name'] = $_POST['name'];
+            }
+        } else {
+            $errors['name'] = 'Имя не может быть пустым';
+        }
+        if ($surname !== '') {
+            if ((strlen($surname) >= 2 && strlen($surname) <= 30) == false) {
+                $errors['surname'] = 'Имя должно быть не менее 2 символов и не более 30';
+                $old['surname'] = $_POST['surname'];
+            }
+        } else {
+            $errors['surname'] = 'Фамилия не может быть пустой';
+        }
         if ($_POST['login'] !== '') {
             if ((strlen($_POST['login']) >= 2 && strlen($_POST['login']) <= 30) == false) {
                 $errors['login'] = 'login должен быть не менее 2 символов и не более 30';
@@ -81,9 +193,10 @@ class methods_for_registration_controller
         }
         $hashPassword  = password_hash($password, PASSWORD_DEFAULT);
         if ($row == NULL) {
-            $insert = "INSERT INTO `registration`(`login`,`password`)VALUES('".$login."', '".$hashPassword."')";
+            $insert = "INSERT INTO `registration`(`login`,`password`, `name`, `surname`)
+                                    VALUES('".$login."', '".$hashPassword."', '".$name."','".$surname."')";
             mysqli_query($db->connect, $insert)or die (mysqli_error($db->connect));
-            $_SESSION['insert'] = 'Авторизация прошла успешно';
+            $_SESSION['insert'] = 'Регистрация прошла успешно';
             header("Location: /show_registration_form" );
         }
     }
