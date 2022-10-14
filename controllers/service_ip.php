@@ -44,8 +44,7 @@ class service_ip
 
     public function rmonitoring()
     {
-//        if (!empty($_SESSION['auth'])) {
-//var_dump($_SESSION['auth']);die();
+
             $db = new \core\db();
     //  ************************************ monitoring ************************************
             function help($url, $protocol = "http") {
@@ -123,12 +122,9 @@ class service_ip
                     echo json_encode(['message' => "ERROR: Не удалось выполнить $sql. ". mysqli_error($db->connect), 'status' => 'no']);
                 }
             }
-//        } else {
-//            $_SESSION['authReg'] = 'Нужно авторизироваться для доступа к постановки сайта на мониторинг!';
 
             $view = new \core\view('register_controller');
             $view->render();
-//        }
     }
 
     public function rip()

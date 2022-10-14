@@ -135,43 +135,52 @@ class methods_for_registration_controller
         $name = $_POST['name'];
         $surname = $_POST['surname'];
         $login = $_POST['login'];
+        $mailPat = $_POST['mail'];
         $password = $_POST['password'];
-
-
 
         $sql = "SELECT `login` FROM `registration` WHERE login = '$login'";
         $result = mysqli_query($db->connect, $sql) or die (mysqli_error($db->connect));
         $row = mysqli_fetch_assoc($result);
 
         if ($name !== '') {
+            $old['name'] = $_POST['name'];
             if ((strlen($name) >= 2 && strlen($name) <= 30) == false) {
                 $errors['name'] = 'Имя должно быть не менее 2 символов и не более 30';
-                $old['name'] = $_POST['name'];
             }
         } else {
             $errors['name'] = 'Имя не может быть пустым';
         }
         if ($surname !== '') {
+            $old['surname'] = $_POST['surname'];
             if ((strlen($surname) >= 2 && strlen($surname) <= 30) == false) {
                 $errors['surname'] = 'Имя должно быть не менее 2 символов и не более 30';
-                $old['surname'] = $_POST['surname'];
             }
         } else {
             $errors['surname'] = 'Фамилия не может быть пустой';
         }
         if ($_POST['login'] !== '') {
+            $old['login'] = $_POST['login'];
             if ((strlen($_POST['login']) >= 2 && strlen($_POST['login']) <= 30) == false) {
                 $errors['login'] = 'login должен быть не менее 2 символов и не более 30';
-                $old['login'] = $_POST['login'];
             }
             if ($row !== NULL) {
                 $errors['login'] = 'такой login уже существует';
-                $old['login'] = $_POST['login'];
             }
         } else {
             $errors['login'] = 'login не может быть пустым';
         }
+//******************************************************
 
+        if ($_POST['mail'] !== '') {
+            $old['mail'] = $_POST['mail'];
+            if (filter_var($mailPat, FILTER_VALIDATE_EMAIL) == false) {
+                $errors['mail'] = 'mail не корректный';
+            }
+        } else {
+            $errors['mail'] = 'mail не может быть пустым';
+        }
+
+//******************************************************
         if ($_POST['password'] !== '') {
             if ((strlen($_POST['password']) >= 3 && strlen($_POST['password']) <= 60) == false) {
                 $errors['password'] = 'password должен быть не менее 3 символов и не более 60';
@@ -193,8 +202,8 @@ class methods_for_registration_controller
         }
         $hashPassword  = password_hash($password, PASSWORD_DEFAULT);
         if ($row == NULL) {
-            $insert = "INSERT INTO `registration`(`login`,`password`, `name`, `surname`)
-                                    VALUES('".$login."', '".$hashPassword."', '".$name."','".$surname."')";
+            $insert = "INSERT INTO `registration`(`login`,`password`, `name`, `surname`, `mail`)
+                                    VALUES('".$login."', '".$hashPassword."', '".$name."','".$surname."','".$mailPat."')";
             mysqli_query($db->connect, $insert)or die (mysqli_error($db->connect));
             $_SESSION['insert'] = 'Регистрация прошла успешно';
             header("Location: /show_registration_form" );

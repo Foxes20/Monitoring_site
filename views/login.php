@@ -13,9 +13,13 @@
     <title>Document</title>
 </head>
     <body>
+    <h2>Страница аутентификации</h2>
         <form action="/loginAuth" method="POST">
             <input type="text" placeholder="login" name="loginAuth">
+            <br>
             <input type="password" placeholder="password" name="passwordAuth">
+            <br>
+            <a href="./show_password_recovery">Забыли пароль</a><br>
             <input type="submit" value="Авторизироваться">
 
             <? if ($auth): ?>

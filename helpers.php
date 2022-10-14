@@ -60,3 +60,7 @@ function unregisteredUser()
     }
     return true;
 }
+
+function checkAuthUser() {
+    return !empty($_SESSION['auth']);
+}
