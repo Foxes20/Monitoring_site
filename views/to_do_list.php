@@ -22,8 +22,8 @@
                     <p><?= $errors['errorMessage'];?></p>
                 <? endif; ?>
 
-                <? if (isset($errorsDel['delMessage'])): ?>
-                    <p><?= $errorsDel['delMessage'];?></p>
+                <? if (isset($errorsMessage)): ?>
+                    <p><?= $errorsMessage;?></p>
                 <? endif; ?>
                 <?if (isset($message_added)) :?>
                     <p><?=$message_added?></p>

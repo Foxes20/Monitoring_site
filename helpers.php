@@ -64,3 +64,10 @@ function unregisteredUser()
 function checkAuthUser() {
     return !empty($_SESSION['auth']);
 }
+
+
+function notFound() {
+    header("HTTP/1.0 404 Not Found");
+    $view = new \core\view('404');
+    $view->render();
+}

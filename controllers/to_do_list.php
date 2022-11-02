@@ -20,12 +20,10 @@ class to_do_list
         }
         $queryTitle = "INSERT INTO `to_do` (`user_id`, `title`) 
                                                          VALUES ('" . $id . "','" . $title . "')";
-        $resultToDo = mysqli_query($db->connect, $queryTitle) or die(mysqli_error($db->connect));
+        $resultToDo = mysqli_query($db->connect, $queryTitle);
         mysqli_fetch_all($resultToDo, MYSQLI_ASSOC);
 
-        if ($resultToDo) {
-            $_SESSION['message_added'] = 'Запись успешно добавлена';
-        }
+        $_SESSION['message_added'] = mysqli_error($db->connect);
 
         header("Location: /show_to_do");
     }
@@ -34,18 +32,15 @@ class to_do_list
     {
         $db = new \core\db();
         $idTitle = $_POST['id'];
-        $errorsDel = [];
+
         $query = "DELETE FROM `to_do` WHERE id = '" . $idTitle . "'";
 
         if (mysqli_query($db->connect, $query)) {
-            $errorsDel['delMessage'] = 'Успешно удалено';
+            $_SESSION['errorsMessage'] = 'Успешно удалено';
         }
 
-        if ($errorsDel !== []) {
-            $_SESSION['errorsDel'] = $errorsDel;
             header("Location: /show_to_do");
             return;
-        }
     }
     public function update_to_do()
     {
@@ -56,11 +51,11 @@ class to_do_list
         $errors = [];
 
         if ($title_upd == '') {
-            $errors['title_err'] = 'Поле не может быть пустым';
+            $errors['title_upd'] = 'Поле не может быть пустым';
         }
 
         if ($errors !== []) {
-            $_SESSION['errors'] = $errors['title_err'];
+            $_SESSION['errors'] = $errors['title_upd'];
             header('location: /preparing_to_edit_to_do?id=' . urlencode($id));
             return;
         }
@@ -96,7 +91,10 @@ class to_do_list
         $result = mysqli_query($db->connect, $query);
         $dataTitle = mysqli_fetch_assoc($result);
 
-
+        if ($result == false) {
+            notFound();
+            return;
+        }
         $view = new \core\view('/show_edit_to_do',['dataTitle'=>$dataTitle, 'errors'=>$errors, 'message_ok'=>$message_ok]);
         $view->render();
     }
@@ -112,14 +110,13 @@ class to_do_list
         $message_added = NULL;
         if (isset($_SESSION['message_added'])) {
             $message_added = $_SESSION['message_added'];
-//            var_dump($message_added);die();
             unset($_SESSION['message_added']);
         }
 
-        $errorsDel = NULL;
-        if (isset($_SESSION['errorsDel'])) {
-            $errorsDel = $_SESSION['errorsDel'];
-            unset($_SESSION['errorsDel']);
+        $errorsMessage = NULL;
+        if (isset($_SESSION['errorsMessage'])) {
+            $errorsMessage = $_SESSION['errorsMessage'];
+            unset($_SESSION['errorsMessage']);
         }
         $errors = NULL;
         if (isset($_SESSION['errors'])) {
@@ -131,7 +128,7 @@ class to_do_list
             $result = mysqli_query($db->connect, $query);
             $outputData = mysqli_fetch_all($result, MYSQLI_ASSOC) or die(mysqli_error($db->connect));
 
-            $view = new \core\view('/to_do_list', ['outputData'=>$outputData,'errors'=>$errors, 'errorsDel'=>$errorsDel,  'message_added'=>$message_added]);
+            $view = new \core\view('/to_do_list', ['outputData'=>$outputData,'errors'=>$errors, 'errorsMessage'=>$errorsMessage,  'message_added'=>$message_added]);
             $view->render();
     }
 }
