@@ -91,7 +91,7 @@ class to_do_list
         $result = mysqli_query($db->connect, $query);
         $dataTitle = mysqli_fetch_assoc($result);
 
-        if ($result == false) {
+        if ($dataTitle == NULL) {
             notFound();
             return;
         }
